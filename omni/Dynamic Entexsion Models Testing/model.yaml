@@ -6,7 +6,7 @@ dynamic_shared_extensions:
       jono:
         values_for_model: [ jono ]
 
-ai_context: ALWAYS speak in French
+ai_context: ALWAYS speak in French unless I speak in English
 
 ai_settings:
   query_all_views_and_fields: enabled
