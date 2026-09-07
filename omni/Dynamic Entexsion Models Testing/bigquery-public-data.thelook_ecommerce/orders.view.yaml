@@ -6,13 +6,8 @@ schema: thelook_ecommerce
 table_name: orders
 
 dimensions:
-  status: {}
-  gender: {}
-  created_at: {}
-  returned_at: {}
   shipped_at: {}
   delivered_at: {}
-  num_of_item: {}
 
   order_id:
     format: ID
@@ -21,6 +16,34 @@ dimensions:
   user_id:
     format: ID
 
+  status:
+    synonyms: [ order status ]
+    ai_context: Order-level fulfillment status (e.g. Complete, Shipped, Processing,
+      Cancelled, Returned). Prefer this over line-item status for order-level
+      questions.
+
+  gender:
+    ai_context: Gender recorded on the order; duplicates the customer's gender on
+      the Users view.
+
+  created_at:
+    synonyms: [ order date ]
+    ai_context: When the order was placed. Use for order-count trends over time.
+
+  returned_at:
+    ai_context: Populated only when the order was returned; null otherwise.
+
+  num_of_item:
+    synonyms: [ items per order, basket size ]
+    ai_context: Number of items on the order as recorded on the order header. For
+      units sold across a set of orders, prefer counting order items instead.
+
 measures:
   count:
     aggregate_type: count
+    synonyms: [ orders, order count ]
+    ai_context: Number of distinct orders. The correct measure for "how many orders"
+      and the denominator for average order value.
+
+ai_context: |
+  Order-header grain: one row per order. Joins many-to-one from order items. Use this view's count for order counts and average order value denominators; never count order items when the user asks for orders. Order-level status and dates can differ from the individual line items'.

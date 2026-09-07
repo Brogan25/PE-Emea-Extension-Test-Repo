@@ -6,15 +6,11 @@ schema: thelook_ecommerce
 table_name: inventory_items
 
 dimensions:
-  created_at: {}
-  sold_at: {}
-  cost: {}
   product_category: {}
   product_name: {}
   product_brand: {}
   product_retail_price: {}
   product_department: {}
-  product_sku: {}
 
   id:
     format: ID
@@ -23,9 +19,34 @@ dimensions:
   product_id:
     format: ID
 
+  created_at:
+    ai_context: When the unit entered inventory. Pair with sold_at to measure days
+      in inventory.
+
+  sold_at:
+    synonyms: [ sell date ]
+    ai_context: When the unit sold. Null means still in inventory — filter to null
+      for on-hand stock counts.
+
+  cost:
+    synonyms: [ cogs, unit cost ]
+    ai_context: Actual cost of this inventory unit. The correct cost basis for gross
+      margin against the line item's sale_price.
+
+  product_sku:
+    synonyms: [ sku ]
+    ai_context: SKU of the product for this unit. High cardinality — use for
+      SKU-level lookups.
+
   product_distribution_center_id:
     format: ID
 
 measures:
   count:
     aggregate_type: count
+    synonyms: [ inventory units, stock count ]
+    ai_context: Number of inventory units. Filter sold_at to null for units still in
+      stock, or non-null for units sold.
+
+ai_context: |
+  Inventory unit grain: one row per physical unit of stock. Joins many-to-one from order items, where it supplies the actual cost of the unit sold — use that cost against the line item's sale_price for realized gross margin. sold_at is populated only for units that sold, so null sold_at identifies unsold on-hand inventory. Product attributes here are denormalized copies; prefer the Products view for product grouping.
