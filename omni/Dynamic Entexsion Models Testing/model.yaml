@@ -1,0 +1,12 @@
+dynamic_shared_extensions:
+  - user_attribute: shared_extension
+    mappings:
+      ryan:
+        values_for_model: [ ryan ]
+      jono:
+        values_for_model: [ jono ]
+
+ai_settings:
+  query_all_views_and_fields: enabled
+
+ai_chat_topics: []

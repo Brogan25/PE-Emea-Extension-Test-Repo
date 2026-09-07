@@ -1,0 +1,4 @@
+base_view: sql_only_view
+label: SQL Topic
+
+joins: {}
