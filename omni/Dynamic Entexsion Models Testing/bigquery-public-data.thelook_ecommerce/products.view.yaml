@@ -6,17 +6,38 @@ schema: thelook_ecommerce
 table_name: products
 
 dimensions:
-  cost: {}
-  category: {}
-  name: {}
-  brand: {}
-  retail_price: {}
-  department: {}
   sku: {}
 
   id:
     format: ID
     primary_key: true
+
+  cost:
+    synonyms: [ unit cost ]
+    ai_context: Catalog-level unit cost. For realized margin on actual sales, prefer
+      the cost on the Inventory Items view.
+
+  category:
+    synonyms: [ product category, product type ]
+    ai_context: Product category, the most common grouping for product-mix analysis.
+
+  name:
+    synonyms: [ product name, item ]
+    ai_context: Product name. High cardinality — use for top-N product lists, not
+      broad grouping.
+
+  brand:
+    synonyms: [ vendor, label ]
+    ai_context: Product brand.
+
+  retail_price:
+    synonyms: [ list price, msrp ]
+    ai_context: List price from the catalog, not the price actually paid. Compare
+      against the line item's sale_price to measure discounting.
+
+  department:
+    synonyms: [ product department ]
+    ai_context: Broad department grouping above category (e.g. Men, Women).
 
   distribution_center_id:
     format: ID
@@ -24,3 +45,9 @@ dimensions:
 measures:
   count:
     aggregate_type: count
+    synonyms: [ products, skus ]
+    ai_context: Number of distinct products, e.g. catalog breadth or products sold
+      when filtered by sales activity.
+
+ai_context: |
+  Product catalog dimension: one row per product. Joins many-to-one from order items. Use for slicing revenue and units by brand, category, or department. Product-level cost and retail_price are list values from the catalog — for realized margin, use the cost on the Inventory Items view against the line item's sale_price.

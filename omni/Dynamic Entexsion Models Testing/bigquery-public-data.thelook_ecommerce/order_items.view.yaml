@@ -6,13 +6,6 @@ schema: thelook_ecommerce
 table_name: order_items
 
 dimensions:
-  status: {}
-  created_at: {}
-  shipped_at: {}
-  delivered_at: {}
-  returned_at: {}
-  sale_price: {}
-
   id:
     format: ID
     primary_key: true
@@ -29,10 +22,51 @@ dimensions:
   inventory_item_id:
     format: ID
 
+  status:
+    synonyms: [ item status, fulfillment status ]
+    ai_context: Line-item fulfillment status (e.g. Complete, Shipped, Processing,
+      Cancelled, Returned). Line-item status can differ from the parent order's
+      status.
+
+  created_at:
+    synonyms: [ sale date, order date ]
+    ai_context: When the line item was created; use this as the primary sale date
+      for revenue trends over time.
+
+  shipped_at:
+    ai_context: When the item shipped. Null means not yet shipped. Pair with
+      created_at to measure time to ship.
+
+  delivered_at:
+    ai_context: When the item was delivered. Null means not yet delivered. Pair with
+      shipped_at to measure delivery time.
+
+  returned_at:
+    synonyms: [ return date, returns ]
+    ai_context: Populated only when the item was returned. Filter to non-null for
+      returned items, null for kept items. Use this rather than status for
+      return analysis.
+
+  sale_price:
+    synonyms: [ revenue, sales, price paid ]
+    ai_context: Actual price paid for this single line item, net of any order-level
+      discounting reflected in the source data. Sum for revenue; compare against
+      products.retail_price for discounting and against inventory_items.cost for
+      margin.
+
 measures:
   count:
     aggregate_type: count
+    synonyms: [ units sold, items sold, line items ]
+    ai_context: Count of line items, i.e. units sold. Not a count of orders.
 
   total_revenue:
     sql: ${bigquery_public_data_thelook_ecommerce__order_items.sale_price}
     aggregate_type: sum
+    synonyms: [ revenue, total sales, gmv ]
+    ai_context: "Primary revenue metric: sum of line-item sale_price. Default
+      measure for any revenue, sales, or GMV question. Does not exclude returned
+      items — filter returned_at to null if returns should be excluded."
+
+ai_context: |
+  Line-item grain fact view: one row per item sold within an order. This is the base view for the Ecommerce Sales topic and the correct starting point for revenue, units sold, and return analysis. Revenue is sale_price summed (total_revenue). Units sold = count. Returns: returned_at is populated only for returned items. Do not use for order-level counts — use the Orders view's count for that.

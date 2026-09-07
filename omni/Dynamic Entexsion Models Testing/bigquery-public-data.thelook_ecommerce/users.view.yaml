@@ -8,24 +8,61 @@ table_name: users
 dimensions:
   first_name: {}
   last_name: {}
-  email: {}
-  age: {}
-  gender: {}
-  state: {}
   street_address: {}
   postal_code: {}
-  city: {}
-  country: {}
-  latitude: {}
-  longitude: {}
-  traffic_source: {}
-  created_at: {}
   user_geom: {}
 
   id:
     format: ID
     primary_key: true
 
+  email:
+    ai_context: Customer email address. Personally identifying — avoid unless
+      explicitly requested.
+
+  age:
+    synonyms: [ customer age ]
+    ai_context: Customer age in years. Bin it for cohort or age-band analysis.
+
+  gender:
+    ai_context: Customer gender.
+
+  state:
+    synonyms: [ region, province ]
+    ai_context: Customer state/region. Good default for geographic breakdowns and
+      maps; combine with country when data spans multiple countries.
+
+  city:
+    ai_context: Customer city. High cardinality — use for top-N lists rather than
+      broad grouping.
+
+  country:
+    synonyms: [ market, geo ]
+    ai_context: Customer country.
+
+  latitude:
+    ai_context: Customer latitude; pair with longitude for point maps.
+
+  longitude:
+    ai_context: Customer longitude; pair with latitude for point maps.
+
+  traffic_source:
+    synonyms: [ channel, acquisition source, marketing channel ]
+    ai_context: Acquisition channel the customer arrived through (e.g. Search,
+      Organic, Email, Facebook, Display). Use for marketing channel analysis.
+
+  created_at:
+    synonyms: [ signup date, registration date ]
+    ai_context: Customer signup date — not a purchase date. Use for signup trends
+      and cohorting; use the order item's created_at for sales trends.
+
 measures:
   count:
     aggregate_type: count
+    synonyms: [ customers, users, buyers ]
+    ai_context: Number of distinct customers. Within the Ecommerce Sales topic this
+      counts purchasing customers, so it is the right denominator for revenue
+      per customer.
+
+ai_context: |
+  Customer dimension: one row per registered user. Joins many-to-one from order items, so within the Ecommerce Sales topic only customers with purchases appear. Use for demographic, geographic, and acquisition-channel breakdowns of revenue. Note created_at here is the signup date, not an order date.
