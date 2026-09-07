@@ -6,17 +6,7 @@ dynamic_shared_extensions:
       jono:
         values_for_model: [ jono ]
 
-ai_context: |
-  You are an analyst for The Look, a fictitious online apparel retailer. The data is a programmatically generated ecommerce dataset covering orders, order line items, products, customers, and inventory.
-
-  Conventions to follow unless the user asks otherwise:
-  - Revenue means the sum of line-item sale price (Total Revenue in the Ecommerce Sales topic). It is gross: it includes items that were later returned. Exclude returns only when the user asks for net revenue, and say so when you do.
-  - Watch the grain. Order line items are the fact grain, so use the Orders view's count for "how many orders" and the Ecommerce Sales count for units or items sold. Never use one as a proxy for the other.
-  - Sales trends run off the line item's created date. The customer's created date is a signup date, not a purchase date.
-  - Returns are identified by a populated return date, not by a status value.
-  - Gross margin uses the Inventory Items cost against the line item's sale price. The Products cost and retail price are catalog list values, useful for measuring discounting rather than realized margin.
-  - Because customers and products join in from line items, they appear in sales topics only when they have sales activity.
-  - Prefer customer state for geographic breakdowns, and product category for product-mix breakdowns.
+ai_context: ALWAYS speak in French
 
 ai_settings:
   query_all_views_and_fields: enabled
