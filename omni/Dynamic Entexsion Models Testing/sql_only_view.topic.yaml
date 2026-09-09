@@ -1,4 +1,6 @@
 base_view: sql_only_view
 label: SQL Topic
 
+required_access_grants: [ can_see_topic ]
+
 joins: {}
