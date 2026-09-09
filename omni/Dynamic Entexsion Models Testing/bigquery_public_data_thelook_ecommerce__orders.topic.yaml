@@ -30,6 +30,7 @@ fields:
     bigquery_public_data_thelook_ecommerce__inventory_items.sold_at,
     bigquery_public_data_thelook_ecommerce__inventory_items.count
   ]
+required_access_grants: [ can_see_topic_shared ]
 
 joins:
   bigquery_public_data_thelook_ecommerce__orders: {}
