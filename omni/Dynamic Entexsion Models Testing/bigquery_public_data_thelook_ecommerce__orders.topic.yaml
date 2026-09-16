@@ -1,0 +1,44 @@
+base_view: bigquery_public_data_thelook_ecommerce__order_items
+label: Ecommerce Sales
+
+fields:
+  [
+    bigquery_public_data_thelook_ecommerce__order_items.id,
+    bigquery_public_data_thelook_ecommerce__order_items.created_at,
+    bigquery_public_data_thelook_ecommerce__order_items.status,
+    bigquery_public_data_thelook_ecommerce__order_items.sale_price,
+    bigquery_public_data_thelook_ecommerce__order_items.returned_at,
+    bigquery_public_data_thelook_ecommerce__order_items.count,
+    bigquery_public_data_thelook_ecommerce__order_items.total_revenue,
+    bigquery_public_data_thelook_ecommerce__orders.order_id,
+    bigquery_public_data_thelook_ecommerce__orders.num_of_item,
+    bigquery_public_data_thelook_ecommerce__orders.status,
+    bigquery_public_data_thelook_ecommerce__orders.count,
+    bigquery_public_data_thelook_ecommerce__products.name,
+    bigquery_public_data_thelook_ecommerce__products.brand,
+    bigquery_public_data_thelook_ecommerce__products.category,
+    bigquery_public_data_thelook_ecommerce__products.department,
+    bigquery_public_data_thelook_ecommerce__products.retail_price,
+    bigquery_public_data_thelook_ecommerce__users.id,
+    bigquery_public_data_thelook_ecommerce__users.state,
+    bigquery_public_data_thelook_ecommerce__users.country,
+    bigquery_public_data_thelook_ecommerce__users.age,
+    bigquery_public_data_thelook_ecommerce__users.traffic_source,
+    bigquery_public_data_thelook_ecommerce__users.count,
+    bigquery_public_data_thelook_ecommerce__inventory_items.cost,
+    bigquery_public_data_thelook_ecommerce__inventory_items.product_sku,
+    bigquery_public_data_thelook_ecommerce__inventory_items.sold_at,
+    bigquery_public_data_thelook_ecommerce__inventory_items.count
+  ]
+
+joins:
+  bigquery_public_data_thelook_ecommerce__orders: {}
+  bigquery_public_data_thelook_ecommerce__products: {}
+  bigquery_public_data_thelook_ecommerce__users: {}
+  bigquery_public_data_thelook_ecommerce__inventory_items: {}
+
+ai_context: Ecommerce sales topic at the order-item (line-item) grain. Each row
+  is one line item in an order. Revenue = sale_price summed across order items.
+  Orders, products, users (customers), and inventory items join in at
+  many-to-one from order_items. Returns are identified by returned_at being
+  populated (not null).

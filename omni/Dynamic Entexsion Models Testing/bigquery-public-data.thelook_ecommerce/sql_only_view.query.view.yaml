@@ -1,0 +1,124 @@
+# Reference this view as sql_only_view
+label: SQL_only_view
+
+catalog: bigquery-public-data
+schema: thelook_ecommerce
+sql: |-
+  SELECT CAST(t2.bigquery_public_data_thelook_ecommerce__order_items__created_at__date AS DATETIME) AS bigquery_public_data_thelook_ecommerce__order_items__created_at__date__raw,
+      t2.bigquery_public_data_thelook_ecommerce__order_items__order_id,
+      t2.bigquery_public_data_thelook_ecommerce__order_items__id,
+      t2.bigquery_public_data_thelook_ecommerce__order_items__status,
+      t2.bigquery_public_data_thelook_ecommerce__order_items__sale_price,
+      CAST(t2.bigquery_public_data_thelook_ecommerce__order_items__shipped_at__date AS DATETIME) AS bigquery_public_data_thelook_ecommerce__order_items__shipped_at__date__raw,
+      CAST(t2.bigquery_public_data_thelook_ecommerce__order_items__delivered_at__date AS DATETIME) AS bigquery_public_data_thelook_ecommerce__order_items__delivered_at__date__raw,
+      CAST(t2.bigquery_public_data_thelook_ecommerce__order_items__returned_at__date AS DATETIME) AS bigquery_public_data_thelook_ecommerce__order_items__returned_at__date__raw,
+      t2.bigquery_public_data_thelook_ecommerce__orders__status,
+      t2.bigquery_public_data_thelook_ecommerce__orders__num_of_item,
+      t2.bigquery_public_data_thelook_ecommerce__products__name,
+      t2.bigquery_public_data_thelook_ecommerce__products__brand,
+      t2.bigquery_public_data_thelook_ecommerce__products__category,
+      t2.bigquery_public_data_thelook_ecommerce__products__department,
+      t2.bigquery_public_data_thelook_ecommerce__products__sku,
+      t2.bigquery_public_data_thelook_ecommerce__products__retail_price,
+      t2.bigquery_public_data_thelook_ecommerce__products__cost,
+      t2.bigquery_public_data_thelook_ecommerce__inventory_items__id,
+      t2.bigquery_public_data_thelook_ecommerce__inventory_items__cost,
+      CAST(t2.bigquery_public_data_thelook_ecommerce__inventory_items__sold_at__date AS DATETIME) AS bigquery_public_data_thelook_ecommerce__inventory_items__sold_at__date__raw,
+      t2.bigquery_public_data_thelook_ecommerce__inventory_items__product_distribution_center_id,
+      t2.bigquery_public_data_thelook_ecommerce__users__id,
+      t2.bigquery_public_data_thelook_ecommerce__users__first_name,
+      t2.bigquery_public_data_thelook_ecommerce__users__last_name,
+      t2.bigquery_public_data_thelook_ecommerce__users__email,
+      t2.bigquery_public_data_thelook_ecommerce__users__age,
+      t2.bigquery_public_data_thelook_ecommerce__users__gender,
+      t2.bigquery_public_data_thelook_ecommerce__users__city,
+      t2.bigquery_public_data_thelook_ecommerce__users__state,
+      t2.bigquery_public_data_thelook_ecommerce__users__country,
+      t2.bigquery_public_data_thelook_ecommerce__users__traffic_source,
+      FORMAT_DATE('%Y-%m-%d', t2.bigquery_public_data_thelook_ecommerce__order_items__created_at__date) AS bigquery_public_data_thelook_ecommerce__order_items__created_at__date,
+      FORMAT_DATE('%Y-%m-%d', t2.bigquery_public_data_thelook_ecommerce__order_items__shipped_at__date) AS bigquery_public_data_thelook_ecommerce__order_items__shipped_at__date,
+      FORMAT_DATE('%Y-%m-%d', t2.bigquery_public_data_thelook_ecommerce__order_items__delivered_at__date) AS bigquery_public_data_thelook_ecommerce__order_items__delivered_at__date,
+      FORMAT_DATE('%Y-%m-%d', t2.bigquery_public_data_thelook_ecommerce__order_items__returned_at__date) AS bigquery_public_data_thelook_ecommerce__order_items__returned_at__date,
+      FORMAT_DATE('%Y-%m-%d', t2.bigquery_public_data_thelook_ecommerce__inventory_items__sold_at__date) AS bigquery_public_data_thelook_ecommerce__inventory_items__sold_at__date
+  FROM (SELECT bigquery_public_data_thelook_ecommerce__inventory_items.cost AS bigquery_public_data_thelook_ecommerce__inventory_items__cost,
+              bigquery_public_data_thelook_ecommerce__inventory_items.id AS bigquery_public_data_thelook_ecommerce__inventory_items__id,
+              bigquery_public_data_thelook_ecommerce__inventory_items.product_distribution_center_id AS bigquery_public_data_thelook_ecommerce__inventory_items__product_distribution_center_id,
+              TIMESTAMP_TRUNC(bigquery_public_data_thelook_ecommerce__inventory_items.sold_at, DAY) AS bigquery_public_data_thelook_ecommerce__inventory_items__sold_at__date,
+              TIMESTAMP_TRUNC(bigquery_public_data_thelook_ecommerce__order_items.created_at, DAY) AS bigquery_public_data_thelook_ecommerce__order_items__created_at__date,
+              TIMESTAMP_TRUNC(bigquery_public_data_thelook_ecommerce__order_items.delivered_at, DAY) AS bigquery_public_data_thelook_ecommerce__order_items__delivered_at__date,
+              bigquery_public_data_thelook_ecommerce__order_items.id AS bigquery_public_data_thelook_ecommerce__order_items__id,
+              bigquery_public_data_thelook_ecommerce__order_items.order_id AS bigquery_public_data_thelook_ecommerce__order_items__order_id,
+              TIMESTAMP_TRUNC(bigquery_public_data_thelook_ecommerce__order_items.returned_at, DAY) AS bigquery_public_data_thelook_ecommerce__order_items__returned_at__date,
+              bigquery_public_data_thelook_ecommerce__order_items.sale_price AS bigquery_public_data_thelook_ecommerce__order_items__sale_price,
+              TIMESTAMP_TRUNC(bigquery_public_data_thelook_ecommerce__order_items.shipped_at, DAY) AS bigquery_public_data_thelook_ecommerce__order_items__shipped_at__date,
+              bigquery_public_data_thelook_ecommerce__order_items.status AS bigquery_public_data_thelook_ecommerce__order_items__status,
+              bigquery_public_data_thelook_ecommerce__orders.num_of_item AS bigquery_public_data_thelook_ecommerce__orders__num_of_item,
+              bigquery_public_data_thelook_ecommerce__orders.status AS bigquery_public_data_thelook_ecommerce__orders__status,
+              bigquery_public_data_thelook_ecommerce__products.brand AS bigquery_public_data_thelook_ecommerce__products__brand,
+              bigquery_public_data_thelook_ecommerce__products.category AS bigquery_public_data_thelook_ecommerce__products__category,
+              bigquery_public_data_thelook_ecommerce__products.cost AS bigquery_public_data_thelook_ecommerce__products__cost,
+              bigquery_public_data_thelook_ecommerce__products.department AS bigquery_public_data_thelook_ecommerce__products__department,
+              bigquery_public_data_thelook_ecommerce__products.name AS bigquery_public_data_thelook_ecommerce__products__name,
+              bigquery_public_data_thelook_ecommerce__products.retail_price AS bigquery_public_data_thelook_ecommerce__products__retail_price,
+              bigquery_public_data_thelook_ecommerce__products.sku AS bigquery_public_data_thelook_ecommerce__products__sku,
+              bigquery_public_data_thelook_ecommerce__users.age AS bigquery_public_data_thelook_ecommerce__users__age,
+              bigquery_public_data_thelook_ecommerce__users.city AS bigquery_public_data_thelook_ecommerce__users__city,
+              bigquery_public_data_thelook_ecommerce__users.country AS bigquery_public_data_thelook_ecommerce__users__country,
+              bigquery_public_data_thelook_ecommerce__users.email AS bigquery_public_data_thelook_ecommerce__users__email,
+              bigquery_public_data_thelook_ecommerce__users.first_name AS bigquery_public_data_thelook_ecommerce__users__first_name,
+              bigquery_public_data_thelook_ecommerce__users.gender AS bigquery_public_data_thelook_ecommerce__users__gender,
+              bigquery_public_data_thelook_ecommerce__users.id AS bigquery_public_data_thelook_ecommerce__users__id,
+              bigquery_public_data_thelook_ecommerce__users.last_name AS bigquery_public_data_thelook_ecommerce__users__last_name,
+              bigquery_public_data_thelook_ecommerce__users.state AS bigquery_public_data_thelook_ecommerce__users__state,
+              bigquery_public_data_thelook_ecommerce__users.traffic_source AS bigquery_public_data_thelook_ecommerce__users__traffic_source
+          FROM `bigquery-public-data`.thelook_ecommerce.order_items AS bigquery_public_data_thelook_ecommerce__order_items
+              LEFT JOIN `bigquery-public-data`.thelook_ecommerce.orders AS bigquery_public_data_thelook_ecommerce__orders ON bigquery_public_data_thelook_ecommerce__order_items.order_id = bigquery_public_data_thelook_ecommerce__orders.order_id
+              LEFT JOIN `bigquery-public-data`.thelook_ecommerce.products AS bigquery_public_data_thelook_ecommerce__products ON bigquery_public_data_thelook_ecommerce__order_items.product_id = bigquery_public_data_thelook_ecommerce__products.id
+              LEFT JOIN `bigquery-public-data`.thelook_ecommerce.users AS bigquery_public_data_thelook_ecommerce__users ON bigquery_public_data_thelook_ecommerce__order_items.user_id = bigquery_public_data_thelook_ecommerce__users.id
+              LEFT JOIN `bigquery-public-data`.thelook_ecommerce.inventory_items AS bigquery_public_data_thelook_ecommerce__inventory_items ON bigquery_public_data_thelook_ecommerce__order_items.inventory_item_id = bigquery_public_data_thelook_ecommerce__inventory_items.id
+          WHERE bigquery_public_data_thelook_ecommerce__order_items.created_at >= TIMESTAMP_TRUNC(CAST((CAST(CURRENT_TIMESTAMP AS DATETIME) + INTERVAL -6 DAY) AS TIMESTAMP), DAY) AND bigquery_public_data_thelook_ecommerce__order_items.created_at < TIMESTAMP_TRUNC(CAST((CAST(TIMESTAMP_TRUNC(CAST((CAST(CURRENT_TIMESTAMP AS DATETIME) + INTERVAL -6 DAY) AS TIMESTAMP), DAY) AS DATETIME) + INTERVAL 7 DAY) AS TIMESTAMP), DAY)
+          GROUP BY bigquery_public_data_thelook_ecommerce__inventory_items__cost, bigquery_public_data_thelook_ecommerce__inventory_items__id, bigquery_public_data_thelook_ecommerce__inventory_items__product_distribution_center_id, bigquery_public_data_thelook_ecommerce__inventory_items__sold_at__date, bigquery_public_data_thelook_ecommerce__order_items__created_at__date, bigquery_public_data_thelook_ecommerce__order_items__delivered_at__date, bigquery_public_data_thelook_ecommerce__order_items__id, bigquery_public_data_thelook_ecommerce__order_items__order_id, bigquery_public_data_thelook_ecommerce__order_items__returned_at__date, bigquery_public_data_thelook_ecommerce__order_items__sale_price, bigquery_public_data_thelook_ecommerce__order_items__shipped_at__date, bigquery_public_data_thelook_ecommerce__order_items__status, bigquery_public_data_thelook_ecommerce__orders__num_of_item, bigquery_public_data_thelook_ecommerce__orders__status, bigquery_public_data_thelook_ecommerce__products__brand, bigquery_public_data_thelook_ecommerce__products__category, bigquery_public_data_thelook_ecommerce__products__cost, bigquery_public_data_thelook_ecommerce__products__department, bigquery_public_data_thelook_ecommerce__products__name, bigquery_public_data_thelook_ecommerce__products__retail_price, bigquery_public_data_thelook_ecommerce__products__sku, bigquery_public_data_thelook_ecommerce__users__age, bigquery_public_data_thelook_ecommerce__users__city, bigquery_public_data_thelook_ecommerce__users__country, bigquery_public_data_thelook_ecommerce__users__email, bigquery_public_data_thelook_ecommerce__users__first_name, bigquery_public_data_thelook_ecommerce__users__gender, bigquery_public_data_thelook_ecommerce__users__id, bigquery_public_data_thelook_ecommerce__users__last_name, bigquery_public_data_thelook_ecommerce__users__state, bigquery_public_data_thelook_ecommerce__users__traffic_source
+          ORDER BY bigquery_public_data_thelook_ecommerce__order_items__created_at__date DESC, bigquery_public_data_thelook_ecommerce__order_items__sale_price DESC
+          LIMIT 1000) AS t2
+
+dimensions:
+  bigquery_public_data_thelook_ecommerce__order_items__created_at__date__raw: {}
+  bigquery_public_data_thelook_ecommerce__order_items__order_id: {}
+  bigquery_public_data_thelook_ecommerce__order_items__id: {}
+  bigquery_public_data_thelook_ecommerce__order_items__status: {}
+  bigquery_public_data_thelook_ecommerce__order_items__sale_price: {}
+  bigquery_public_data_thelook_ecommerce__order_items__shipped_at__date__raw: {}
+  bigquery_public_data_thelook_ecommerce__order_items__delivered_at__date__raw: {}
+  bigquery_public_data_thelook_ecommerce__order_items__returned_at__date__raw: {}
+  bigquery_public_data_thelook_ecommerce__orders__status: {}
+  bigquery_public_data_thelook_ecommerce__orders__num_of_item: {}
+  bigquery_public_data_thelook_ecommerce__products__name: {}
+  bigquery_public_data_thelook_ecommerce__products__brand: {}
+  bigquery_public_data_thelook_ecommerce__products__category: {}
+  bigquery_public_data_thelook_ecommerce__products__department: {}
+  bigquery_public_data_thelook_ecommerce__products__sku: {}
+  bigquery_public_data_thelook_ecommerce__products__retail_price: {}
+  bigquery_public_data_thelook_ecommerce__products__cost: {}
+  bigquery_public_data_thelook_ecommerce__inventory_items__id: {}
+  bigquery_public_data_thelook_ecommerce__inventory_items__cost: {}
+  bigquery_public_data_thelook_ecommerce__inventory_items__sold_at__date__raw: {}
+  bigquery_public_data_thelook_ecommerce__inventory_items__product_distribution_center_id: {}
+  bigquery_public_data_thelook_ecommerce__users__id: {}
+  bigquery_public_data_thelook_ecommerce__users__first_name: {}
+  bigquery_public_data_thelook_ecommerce__users__last_name: {}
+  bigquery_public_data_thelook_ecommerce__users__email: {}
+  bigquery_public_data_thelook_ecommerce__users__age: {}
+  bigquery_public_data_thelook_ecommerce__users__gender: {}
+  bigquery_public_data_thelook_ecommerce__users__city: {}
+  bigquery_public_data_thelook_ecommerce__users__state: {}
+  bigquery_public_data_thelook_ecommerce__users__country: {}
+  bigquery_public_data_thelook_ecommerce__users__traffic_source: {}
+  bigquery_public_data_thelook_ecommerce__order_items__created_at__date: {}
+  bigquery_public_data_thelook_ecommerce__order_items__shipped_at__date: {}
+  bigquery_public_data_thelook_ecommerce__order_items__delivered_at__date: {}
+  bigquery_public_data_thelook_ecommerce__order_items__returned_at__date: {}
+  bigquery_public_data_thelook_ecommerce__inventory_items__sold_at__date: {}
+
+measures:
+  count:
+    aggregate_type: count
