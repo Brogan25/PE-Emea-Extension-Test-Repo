@@ -13,10 +13,4 @@ ai_settings:
 
 included_schemas: [ "*bigquery*" ]
 
-access_grants:
-  can_see_topic:
-    user_attribute: can_see_topic
-    allowed_values: [ "true" ]
-    access_boostable: true
-
 ai_chat_topics: []
