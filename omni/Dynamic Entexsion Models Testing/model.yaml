@@ -11,6 +11,8 @@ ai_context: ALWAYS speak in French unless I speak in English
 ai_settings:
   query_all_views_and_fields: enabled
 
+included_schemas: [ "*bigquery" ]
+
 access_grants:
   can_see_topic:
     user_attribute: can_see_topic
