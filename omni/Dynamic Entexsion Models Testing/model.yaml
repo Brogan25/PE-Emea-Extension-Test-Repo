@@ -11,4 +11,15 @@ ai_settings:
 
 included_schemas: [ "*bigquery*" ]
 
+included_views:
+  [
+    distribution_centers,
+    events,
+    inventory_items,
+    order_items,
+    orders,
+    products,
+    users
+  ]
+
 ai_chat_topics: []
